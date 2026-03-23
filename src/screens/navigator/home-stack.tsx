@@ -2,7 +2,6 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import HomeScreen from '../home-screen';
 import ProductDetailScreen from '../product-detail-screen';
 import CheckoutScreen from '../checkout-screen';
-import OrderScreen from '../order-screen';
 
 export type HomeStackParamList = {
     Home: undefined;

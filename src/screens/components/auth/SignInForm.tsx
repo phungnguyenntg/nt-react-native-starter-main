@@ -13,25 +13,30 @@ const schema = yup.object({
   useBiometrics: yup.boolean().default(false),
 });
 
-type FormData = {
+export type SignInFormData = {
   username: string;
   password: string;
   useBiometrics: boolean;
 };
 
+type SignInFormProps = {
+  onSignIn: (data: SignInFormData) => void;
+};
 
-const SignInForm = () => {
+
+const SignInForm = ({ onSignIn }: SignInFormProps) => {
   const {
     control,
     handleSubmit,
     formState: { errors },
-  } = useForm<FormData>({
+  } = useForm<SignInFormData>({
     resolver: yupResolver(schema),
   });
 
   const passwordRef = useRef<TextInput>(null);
 
-  const onSubmit = (data: FormData) => {
+  const onSubmit = (data: SignInFormData) => {
+    onSignIn(data);
     // console.log('Submit:', data);
     //passwordRef.current?.focus();
   };

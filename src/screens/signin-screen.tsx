@@ -1,11 +1,14 @@
 import { useState } from "react";
-import { Text, View, StyleSheet, TouchableOpacity } from "react-native";
+import { Text, View, StyleSheet, ActivityIndicator, Alert, TouchableOpacity } from "react-native";
 import { COLORS } from "./theme/color";
 import Logo from "../assets/icons/logo.svg";
-import SignInForm from "./components/auth/SignInForm";
+import SignInForm, { SignInFormData } from "./components/auth/SignInForm";
 import SignUpForm from "./components/auth/SignUpForm";
 import MediaLoginSection from "./components/auth/MediaLoginSection";
 import TermsText from "./components/auth/TermText";
+import { useAuth } from "../contexts/auth-context";
+import { RootStackParamList } from "./navigator/root-navigator";
+import { NativeStackScreenProps } from "@react-navigation/native-stack";
 
 type TabType = 'signin' | 'signup';
 
@@ -14,8 +17,26 @@ const TABS = [
     { key: 'signup', label: 'Sign Up' },
 ] as const;
 
-const SignInScreen = () => {
+type Props = NativeStackScreenProps<RootStackParamList, 'SignIn'>;
+
+const SignInScreen = ({ route, navigation }: Props) => {
     const [activeTab, setActiveTab] = useState<TabType>('signin');
+    const { login } = useAuth();
+
+    const handleSignIn = async (data: SignInFormData) => {
+        try {
+            await login(data.username, data.password);
+        } catch (error: any) {
+            Alert.alert('Login Failed', error.message || 'Something went wrong');
+            return;
+        }
+
+        if (route.params?.redirectTo) {
+            navigation.navigate('MainTab', { screen: route.params.redirectTo });
+        } else {
+            navigation.navigate('MainTab', { screen: 'ProfileTab' });
+        }
+    };
 
     return (
         <View style={styles.container}>
@@ -49,7 +70,7 @@ const SignInScreen = () => {
                     })}
                 </View>
                 <View style={{ display: activeTab === 'signin' ? 'flex' : 'none' }}>
-                    <SignInForm />
+                    <SignInForm onSignIn={handleSignIn} />
                 </View>
                 <View style={{ display: activeTab === 'signup' ? 'flex' : 'none' }}>
                     <SignUpForm />

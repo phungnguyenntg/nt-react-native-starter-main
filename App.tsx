@@ -1,12 +1,13 @@
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-import MainNavigator from './src/screens/navigator/main-navigator';
-import SignInScreen from './src/screens/signin-screen';
+import { AuthProvider } from './src/contexts/auth-context';
+import RootNavigator from './src/screens/navigator/root-navigator';
 
 function App() {
   return (
     <SafeAreaProvider>
-      {/* <MainNavigator /> */}
-      <SignInScreen />
+      <AuthProvider>
+        <RootNavigator />
+      </AuthProvider>
     </SafeAreaProvider>
   );
 }
