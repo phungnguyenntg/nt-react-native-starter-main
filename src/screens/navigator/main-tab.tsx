@@ -2,9 +2,13 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import HomeStack from './home-stack';
 import ProfileStack from './profile-stack';
 import OrderStack from './order-stack';
-import { MainTabParamList } from './root-navigator';
 
 const Tab = createBottomTabNavigator<MainTabParamList>();
+export type MainTabParamList = {
+  HomeTab: undefined;
+  OrderTab: undefined;
+  ProfileTab: undefined;
+};
 
 const MainTab = () => {
     return (

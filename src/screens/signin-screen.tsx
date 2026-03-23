@@ -19,7 +19,7 @@ const TABS = [
 
 type Props = NativeStackScreenProps<RootStackParamList, 'SignIn'>;
 
-const SignInScreen = ({ route, navigation }: Props) => {
+const SignInScreen = ({ navigation }: Props) => {
     const [activeTab, setActiveTab] = useState<TabType>('signin');
     const { login } = useAuth();
 
@@ -30,12 +30,7 @@ const SignInScreen = ({ route, navigation }: Props) => {
             Alert.alert('Login Failed', error.message || 'Something went wrong');
             return;
         }
-
-        if (route.params?.redirectTo) {
-            navigation.navigate('MainTab', { screen: route.params.redirectTo });
-        } else {
-            navigation.navigate('MainTab', { screen: 'ProfileTab' });
-        }
+        navigation.replace('MainTab');
     };
 
     return (

@@ -1,6 +1,6 @@
 import { Text, TouchableHighlight, View } from "react-native";
 import { BottomTabNavigationProp } from "@react-navigation/bottom-tabs";
-import { MainTabParamList } from "./navigator/root-navigator";
+import { MainTabParamList } from "./navigator/main-tab";
 import { CommonActions, useNavigation } from "@react-navigation/native";
 
 type MainTabNavigation = BottomTabNavigationProp<MainTabParamList>;
