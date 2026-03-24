@@ -1,5 +1,5 @@
 import { api } from "./api-service";
-import { LoginPayload, LoginResponse } from "../types/auth";
+import { LoginPayload, LoginResponse, LogoutResponse } from "../types/auth";
 
 export const loginAPI = async (
   payload: LoginPayload
@@ -7,3 +7,8 @@ export const loginAPI = async (
   const res = await api.post<LoginResponse>("/login", payload);
   return res.data;
 };
+
+export const logoutAPI = async (): Promise<LogoutResponse> => {
+  const res = await api.post<LogoutResponse>("/logout");
+  return res.data;
+}

@@ -24,3 +24,12 @@ export type LoginResponse = {
   status: boolean;
   data: LoginData;
 };
+
+export type LogoutData = {
+  message: string;
+}
+
+export type LogoutResponse = {
+  status: boolean;
+  data: LogoutData;
+}
