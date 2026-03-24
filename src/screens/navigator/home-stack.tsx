@@ -5,7 +5,7 @@ import CheckoutScreen from '../checkout-screen';
 
 export type HomeStackParamList = {
     Home: undefined;
-    ProductDetail: { productId: string };
+    ProductDetail: { productId: number };
     Checkout: undefined;
     Order: { hideBackButton?: boolean };
 }

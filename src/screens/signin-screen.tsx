@@ -30,7 +30,7 @@ const SignInScreen = ({ navigation }: Props) => {
             Alert.alert('Login Failed', error.message || 'Something went wrong');
             return;
         }
-        navigation.replace('MainTab');
+        //navigation.replace('MainTab');
     };
 
     return (

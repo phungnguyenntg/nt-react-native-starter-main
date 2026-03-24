@@ -4,7 +4,7 @@ import ProductDetailScreen from "../product-detail-screen";
 
 export type SavedProductStackParamList = {
     SavedProduct: { hideBackButton: boolean };
-    ProductDetail: { productId: string };
+    ProductDetail: { productId: number };
 }
 
 const Stack = createNativeStackNavigator<SavedProductStackParamList>();

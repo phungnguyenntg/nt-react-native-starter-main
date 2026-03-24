@@ -4,7 +4,7 @@ import { HomeStackParamList } from './navigator/home-stack';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../stores/store';
 import { useEffect } from 'react';
-import { getProducts } from '../slices/product-slide';
+import { getProducts } from '../slices/product/product.thunk';
 import ProductCard from './components/ProductCard';
 import { COLORS } from './theme/color';
 
@@ -45,7 +45,7 @@ const HomeScreen = ({ navigation }: Props) => {
                 keyExtractor={(item) => item.id.toString()}
                 numColumns={2}
                 columnWrapperStyle={styles.row}
-                renderItem={({ item }) => <ProductCard product={item} onPress={() => navigation.navigate('ProductDetail', { productId: item.id.toString() })} onAddPress={() => console.log("Added Product", item.id)} />}
+                renderItem={({ item }) => <ProductCard product={item} onPress={() => navigation.navigate('ProductDetail', { productId: item.id })} onAddPress={() => console.log("Added Product", item.id)} />}
                 showsVerticalScrollIndicator={false}
                 contentContainerStyle={{ paddingBottom: 100 }}
                 refreshControl={<RefreshControl refreshing={refreshing} onRefresh={handleRefresh} />}
