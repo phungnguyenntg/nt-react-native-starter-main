@@ -2,9 +2,14 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { getProductsAPI } from "../services/product-api";
 import { Product } from "../types/product";
 
+type GetProductsArgs = {
+    query?: any;
+    refresh?: boolean;
+}
+
 export const getProducts = createAsyncThunk(
     "product/getProducts",
-    async (query: any, { rejectWithValue }) => {
+    async ({query}: GetProductsArgs, { rejectWithValue }) => {
         try {
             const res = await getProductsAPI(query);
 
@@ -22,12 +27,14 @@ export const getProducts = createAsyncThunk(
 type ProductState = {
     products: Product[];
     loading: boolean;
+    refreshing: boolean;
     error: string | null;
 };
 
 const initialState: ProductState = {
     products: [],
     loading: false,
+    refreshing: false,
     error: null,
 };
 
@@ -37,15 +44,20 @@ const productSlice = createSlice({
     reducers: {},
     extraReducers: builder => {
         builder
-            .addCase(getProducts.pending, state => {
-                state.loading = true;
+            .addCase(getProducts.pending, (state, action) => {
+                const isRefresh = action.meta.arg?.refresh ?? false;
+
+                state.loading = !isRefresh;
+                state.refreshing = isRefresh;
             })
             .addCase(getProducts.fulfilled, (state, action) => {
                 state.loading = false;
+                state.refreshing = false;
                 state.products = action.payload;
             })
             .addCase(getProducts.rejected, (state, action) => {
                 state.loading = false;
+                state.refreshing = false;
                 state.error = action.payload as string;
             });
     },

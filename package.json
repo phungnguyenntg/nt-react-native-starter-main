@@ -22,6 +22,7 @@
     "react-native": "0.84.1",
     "react-native-advanced-checkbox": "^2.0.6",
     "react-native-encrypted-storage": "^4.0.3",
+    "react-native-quick-sqlite": "^8.2.7",
     "react-native-safe-area-context": "^5.7.0",
     "react-native-screens": "^4.24.0",
     "react-native-svg": "^15.15.4",

@@ -2,6 +2,7 @@ import React, { createContext, useState, useEffect, useContext } from "react";
 import EncryptedStorage from "react-native-encrypted-storage";
 import { User, LoginPayload } from "../types/auth";
 import { loginAPI } from "../services/auth-api";
+import { initDB, getUser, saveUser, deleteUser, logCurrentUser } from "../db";
 
 type AuthContextType = {
   user: User | null;
@@ -23,18 +24,25 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
   // Auto login khi mở app
   useEffect(() => {
-    const loadToken = async () => {
-      try {
-        const savedToken = await EncryptedStorage.getItem(TOKEN_KEY);
-        if (savedToken) {
-          setToken(savedToken);
-          // Optional: call /me để lấy user, hoặc decode token
-        }
-      } catch (err) {
-        console.log("Failed to load token", err);
-      }
-    };
-    loadToken();
+    // const loadToken = async () => {
+    //   try {
+    //     const savedToken = await EncryptedStorage.getItem(TOKEN_KEY);
+    //     if (savedToken) {
+    //       setToken(savedToken);
+    //       // Optional: call /me để lấy user, hoặc decode token
+    //     }
+    //   } catch (err) {
+    //     console.log("Failed to load token", err);
+    //   }
+    // };
+    // loadToken();
+    initDB();
+
+    // load user từ local DB
+    const storedUser = getUser();
+    if (storedUser) {
+      setUser(storedUser);
+    }
   }, []);
 
   const login = async (username: string, password: string) => {
@@ -50,6 +58,13 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       setUser(res.data.user);
       setToken(res.data.token);
       await EncryptedStorage.setItem(TOKEN_KEY, res.data.token);
+      const token1 = await EncryptedStorage.getItem("AUTH_TOKEN");
+      console.log("Token saved:", token1);
+      // Save user to local DB
+      saveUser(res.data.user);
+      // Log current user
+      logCurrentUser();
+
     } catch (err: any) {
       setError(err.message || "Something went wrong");
       throw err;
@@ -60,6 +75,8 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
   const logout = async () => {
     setUser(null);
+    // Delete user from local DB
+    deleteUser();
     setToken(null);
     await EncryptedStorage.removeItem(TOKEN_KEY);
   };
