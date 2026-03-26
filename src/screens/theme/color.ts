@@ -1,5 +1,6 @@
 export const COLORS = {
     background: '#F9FAFB',
+    //background: '#d3d4d4',
     primary: '#0DF2F2',
     secondary: '#EC5B13',
     tertiary: '#0D9488',

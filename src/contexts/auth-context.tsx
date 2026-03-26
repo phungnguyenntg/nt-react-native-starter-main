@@ -43,8 +43,8 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       setUser(res.data.user);
       setToken(res.data.token);
       await EncryptedStorage.setItem(TOKEN_KEY, res.data.token);
-      //const token1 = await EncryptedStorage.getItem("AUTH_TOKEN");
-      //console.log("Token saved:", token1);
+      const token = await EncryptedStorage.getItem("AUTH_TOKEN");
+      console.log("Token saved in Encrypted Storage:", token);
       // Save user to local DB
       saveUser(res.data.user);
       // Log current user
@@ -59,7 +59,10 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   };
 
   const logout = async () => {
-    const res = await logoutAPI();
+    try {
+      const res = await logoutAPI();
+    }
+    catch{};
     setUser(null);
     deleteUser();
     setToken(null);

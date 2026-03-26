@@ -83,7 +83,7 @@ export const logCurrentUser = () => {
     const result = db.execute(`SELECT * FROM users LIMIT 1`);
 
     if (result && result.rows && result.rows.length > 0) {
-      console.log('Current user:', result.rows.item(0));
+      console.log('Current user from SQLite:', result.rows.item(0));
     } else {
       console.log('No user found');
     }
