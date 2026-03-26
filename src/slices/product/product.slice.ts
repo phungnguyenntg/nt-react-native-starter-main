@@ -14,7 +14,11 @@ const initialState: ProductState = {
 const productSlice = createSlice({
   name: "product",
   initialState,
-  reducers: {},
+  reducers: {
+    resetProducts: (state) => {
+      state.products = [];
+    }
+  },
   extraReducers: (builder) => {
     builder
       // ===== LIST =====
@@ -49,4 +53,5 @@ const productSlice = createSlice({
   },
 });
 
+export const { resetProducts } = productSlice.actions;
 export default productSlice.reducer;

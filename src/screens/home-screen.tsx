@@ -7,7 +7,8 @@ import { useEffect } from 'react';
 import { getProducts } from '../slices/product/product.thunk';
 import ProductCard from './components/ProductCard';
 import { COLORS } from './theme/color';
-import SearchLogo from '../assets/icons/search.svg'
+import SearchLogo from '../assets/icons/search.svg';
+import { addToCart } from "../slices/cart-slide";
 
 type Props = NativeStackScreenProps<HomeStackParamList, 'Home'>;
 const categories = ["All Items", "Galaxy", "iPhone", "Electricty", "Air Conditioner"];
@@ -23,6 +24,11 @@ const HomeScreen = ({ navigation }: Props) => {
 
     const handleRefresh = () => {
         dispatch(getProducts({ query: {}, refresh: true }))
+    };
+
+    const handleAddToCart = (id: number) => {
+        let chosenProduct = products.find(p => p.id == id);
+        dispatch(addToCart(chosenProduct!));
     }
 
     if (loading) {
@@ -78,7 +84,7 @@ const HomeScreen = ({ navigation }: Props) => {
                 keyExtractor={(item) => item.id.toString()}
                 numColumns={2}
                 columnWrapperStyle={styles.row}
-                renderItem={({ item }) => <ProductCard product={item} onPress={() => navigation.navigate('ProductDetail', { productId: item.id })} onAddPress={() => console.log("Added Product", item.id)} />}
+                renderItem={({ item }) => <ProductCard product={item} onPress={() => navigation.navigate('ProductDetail', { productId: item.id })} onAddPress={() => handleAddToCart(item.id)} />}
                 showsVerticalScrollIndicator={false}
                 contentContainerStyle={{ paddingBottom: 100 }}
                 refreshControl={<RefreshControl refreshing={refreshing} onRefresh={handleRefresh} />}
