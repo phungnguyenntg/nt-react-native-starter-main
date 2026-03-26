@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { ActivityIndicator, FlatList, StyleSheet, Text, View, RefreshControl, TextInput, TouchableOpacity } from 'react-native';
 import { HomeStackParamList } from './navigator/home-stack';
@@ -29,7 +28,7 @@ const HomeScreen = ({ navigation }: Props) => {
     if (loading) {
         return (
             <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-                <ActivityIndicator size="large" color={COLORS.primary} />
+                <ActivityIndicator testID="loading-indicator" size="large" color={COLORS.primary} />
             </View>
         );
     }
@@ -74,6 +73,7 @@ const HomeScreen = ({ navigation }: Props) => {
             </View>
             <View style={styles.separator} />
             <FlatList
+                testID="product-list"
                 data={products}
                 keyExtractor={(item) => item.id.toString()}
                 numColumns={2}
