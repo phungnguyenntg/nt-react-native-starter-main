@@ -11,4 +11,11 @@ module.exports = {
     '/node_modules/',
     '/__tests__/App.test.tsx',
   ],
+  collectCoverage: true,
+  collectCoverageFrom: [
+    "src/**/*.{js,jsx,ts,tsx}",
+    "!src/**/*.test.{js,jsx,ts,tsx}",
+    "!src/**/__tests__/**",
+    "!src/**/node_modules/**"
+  ]
 };

@@ -1,16 +1,34 @@
+import { RootNavigator } from '@/navigation/RootNavigator';
+import { LoadingOverlay } from '@/shared/components/LoadingOverlay';
+import { initDB } from '@/storage/sqliteStorage';
+import { useEffect, useState } from 'react';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-import { AuthProvider } from './src/contexts/auth-context';
-import RootNavigator from './src/screens/navigator/root-navigator';
 import { Provider } from 'react-redux';
-import { store } from './src/stores/store';
+import { store } from './src/store/store';
 
 function App() {
+  const [dbReady, setDbReady] = useState(false);
+
+  useEffect(() => {
+    const initDb = async () => {
+      try {
+        initDB();
+        setDbReady(true);
+      } catch (err) {
+        console.error('DB init failed', err);
+      }
+    };
+    initDb();
+  }, []);
+  if (!dbReady) {
+    return (
+      <LoadingOverlay visible={true} />
+    );
+  }
   return (
     <SafeAreaProvider>
       <Provider store={store}>
-        <AuthProvider>
-          <RootNavigator />
-        </AuthProvider>
+        <RootNavigator />
       </Provider>
     </SafeAreaProvider>
   );
