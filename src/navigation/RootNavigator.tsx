@@ -5,7 +5,6 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { useSelector } from "react-redux";
 import { MainTab } from "./MainTabNavigator";
 import { RootStackParamList } from "./types";
-//import MainTab from '@/screens/navigator/main-tab';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 

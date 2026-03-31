@@ -15,6 +15,7 @@ export const MediaButton: React.FC<MediaButtonProps> = ({
       style={[styles.button, style, disabled && { opacity: 0.6 }]}
       onPress={onPress}
       disabled={disabled}
+      testID="media-button"
     >
       <View style={styles.iconContainer}>{icon}</View>
       <Text style={[styles.label, labelStyle]}>{label}</Text>

@@ -13,7 +13,7 @@ export const LoadingOverlay: React.FC<LoadingOverlayProps> = ({ visible }) => {
         >
             <View style={styles.container}>
                 <View style={styles.indicatorWrapper}>
-                    <ActivityIndicator size="large" color={COLORS.primary} />
+                    <ActivityIndicator size="large" color={COLORS.primary} testID="loading-indicator" />
                 </View>
             </View>
         </Modal>

@@ -32,7 +32,7 @@ export const ProductDetailScreen = ({ route, navigation }: Props) => {
     }, [productId]);
 
     if (loadingDetail) {
-        return <ActivityIndicator size="large" />;
+        return <ActivityIndicator size="large" testID="ActivityIndicator" />;
     }
 
     if (!productDetail) {

@@ -1,12 +1,11 @@
 import { Text, View } from "react-native"
-import { useSelector } from "react-redux"
 import { selectCartItems } from "../store/cart.selectors"
 import { TouchableHighlight, Button } from "react-native";
 import { styles } from "./CartScreen.style";
-import { useAppDispatch } from "@/store/hooks";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { clearCart } from "../store/cart.slice";
 export const CartScreen = () => {
-    const cartItems = useSelector(selectCartItems);
+    const cartItems = useAppSelector(selectCartItems);
     const dispatch = useAppDispatch();
     return (
         <View style={styles.container}>

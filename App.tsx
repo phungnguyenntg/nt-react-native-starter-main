@@ -12,7 +12,7 @@ function App() {
   useEffect(() => {
     const initDb = async () => {
       try {
-        initDB();
+        await initDB();
         setDbReady(true);
       } catch (err) {
         console.error('DB init failed', err);

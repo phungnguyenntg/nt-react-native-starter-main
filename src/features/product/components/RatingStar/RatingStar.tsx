@@ -8,10 +8,10 @@ export const RatingStar = ({ rating }: { rating: number }) => {
   return (
     <View style={{ flexDirection: "row" }}>
       {Array.from({ length: rating }).map((_, index) => (
-        <StarIcon key={`filled-${index}`} />
+        <StarIcon key={`filled-${index}`} testID="filled-star" />
       ))}
       {Array.from({ length: totalStars - rating }).map((_, index) => (
-        <StarOutlineIcon key={`empty-${index}`} />
+        <StarOutlineIcon key={`empty-${index}`} testID="empty-star" />
       ))}
     </View>
   );

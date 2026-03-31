@@ -3,6 +3,6 @@ import { styles } from "./Separator.style"
 
 export const Separator = () => {
     return (
-        <View style={styles.container} />
+        <View testID="separator" style={styles.container} />
     )
 }
