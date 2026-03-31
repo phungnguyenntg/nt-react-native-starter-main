@@ -32,15 +32,29 @@ describe('Product thunks', () => {
 
       expect(productService.getProductsAPI).toHaveBeenCalled();
       expect(result.payload).toEqual([mockProduct]);
+      expect(result.type).toBe('product/getProducts/fulfilled');
     });
 
-    it('should handle failed fetch', async () => {
+    it('should handle failed fetch (status false)', async () => {
       (productService.getProductsAPI as jest.Mock).mockResolvedValue({ status: false });
+
       const dispatch = jest.fn();
       const thunk = getProducts({ query: {} });
       const result = await thunk(dispatch, () => ({}), undefined);
 
       expect(result.type).toBe('product/getProducts/rejected');
+      expect(result.payload).toBe('Fetch failed');
+    });
+
+    it('should handle thrown error in API (catch block)', async () => {
+      (productService.getProductsAPI as jest.Mock).mockRejectedValue(new Error('Network error'));
+
+      const dispatch = jest.fn();
+      const thunk = getProducts({ query: {} });
+      const result = await thunk(dispatch, () => ({}), undefined);
+
+      expect(result.type).toBe('product/getProducts/rejected');
+      expect(result.payload).toBe('Network error');
     });
   });
 
@@ -57,15 +71,29 @@ describe('Product thunks', () => {
 
       expect(productService.getProductDetailAPI).toHaveBeenCalledWith(1);
       expect(result.payload).toEqual(mockProduct);
+      expect(result.type).toBe('product/getProductDetail/fulfilled');
     });
 
-    it('should handle failed fetch', async () => {
+    it('should handle failed fetch (status false)', async () => {
       (productService.getProductDetailAPI as jest.Mock).mockResolvedValue({ status: false });
+
       const dispatch = jest.fn();
       const thunk = getProductDetail(1);
       const result = await thunk(dispatch, () => ({}), undefined);
 
       expect(result.type).toBe('product/getProductDetail/rejected');
+      expect(result.payload).toBe('Fetch detail failed');
+    });
+
+    it('should handle thrown error in API (catch block)', async () => {
+      (productService.getProductDetailAPI as jest.Mock).mockRejectedValue(new Error('Network error'));
+
+      const dispatch = jest.fn();
+      const thunk = getProductDetail(1);
+      const result = await thunk(dispatch, () => ({}), undefined);
+
+      expect(result.type).toBe('product/getProductDetail/rejected');
+      expect(result.payload).toBe('Network error');
     });
   });
 });

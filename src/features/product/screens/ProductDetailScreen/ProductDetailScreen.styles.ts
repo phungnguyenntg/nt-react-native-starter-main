@@ -44,10 +44,42 @@ export const styles = StyleSheet.create({
         fontWeight: 700,
         fontSize: 30
     },
+    sectionTitle: {
+        fontSize: 18,
+        fontWeight: 700,
+        color: COLORS.textSecondary,
+    },
+    mainSection: {
+        paddingVertical: 24,
+        paddingHorizontal: 16,
+        gap: 16,
+        backgroundColor: '#fff',
+    },
     bottomButtons: {
         flexDirection: 'row',
         justifyContent: 'space-around',
         backgroundColor: '#fff',
         padding: 16
+    },
+    fixedBottom: {
+        position: 'absolute',
+        bottom: 0,
+        left: 0,
+        right: 0,
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+        backgroundColor: '#fff',
+        padding: 16,
+        borderTopWidth: 0.5,
+        borderColor: '#ddd',
+    },
+    descriptionText: {
+        fontSize: 14,
+        color: COLORS.textTertiary,
+    },
+    readMoreButton: {
+        color: COLORS.primary,
+        fontWeight: 600,
+        fontSize: 14
     }
 })
